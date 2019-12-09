@@ -16,9 +16,10 @@ def get_data():
     try:
         decode_json = demjson.decode(input_json)
         print(decode_json, type(decode_json))
-    except:
+    except Exception as e:
         output_text.delete('0.0', 'end')
-        output_text.insert('end', ' json解析错误,检查输入是否为json ')
+        output_text.insert('end', 'json解析错误,检查输入是否为json\n')
+        output_text.insert('end', e)
         return
     # 获取数据提取路径
     data_path = get_path_entry.get()
@@ -36,8 +37,9 @@ if type(decode_json) == type([]):
         try:
             here_will_be_replaced_1
             print(output_data, type(output_data))
-        except:
-            output_data = ' 路径解析错误（类型：列表中json） '
+        except Exception as e:
+            output_data = '路径解析错误（类型：列表中json）\n'
+            output_data = output_data + e
         finally:
             output_data = str(output_data) + '\\n'
             output_text.insert('end', str(output_data))
@@ -47,8 +49,9 @@ else:
     try:
         here_will_be_replaced_2
         print(output_data, type(output_data))
-    except:
-        output_data = ' 路径解析错误 (类型：json)'
+    except Exception as e:
+        output_data = '路径解析错误 (类型：json)\n'
+        output_data = output_data + e
     finally:
         output_text.insert('end', str(output_data))
 """
